@@ -1,4 +1,4 @@
-from flask import Flask
+
 import os, sys, json, time, random, string, xmpp
 
 ####################################################
@@ -118,28 +118,6 @@ def flush_queued_messages():
     unacked_messages_quota -= 1
     print 'also here?'
 
-####################################################
-
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-  print 'in hello world method'
-  # client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-
-  send_queue.append({'to': ANDROID,
-                     'message_id': 'reg_id',
-                     'data': {'title': 'Poop', 'message_destination': 'RegId',
-                              'message_id': random_id()}})
-  print 'further'
-  flush_queued_messages()
-  print 'deeper'
-  send_queue.append({'to': ANDROID,
-                   'message_id': 'reg_id',
-                   'data': {'title': 'Poop', 'message_destination': 'RegId',
-                            'message_id': random_id()}})
-  return 'Sent a message to Android!'
-
 if __name__ == '__main__':
   print 'in main'
   print 'before'
@@ -155,8 +133,6 @@ if __name__ == '__main__':
 
   client.RegisterHandler('message', message_callback)
 
-  app.config['DEBUG'] = True
-  app.run()
 
   while True:
     client.Process(1)
