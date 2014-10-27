@@ -105,6 +105,7 @@ def message_callback(session, message):
 
 def send(json_dict):
   template = ("<message><gcm xmlns='google:mobile:data'>{1}</gcm></message>")
+  print 'before send'
   client.send(xmpp.protocol.Message(
       node=template.format(client.Bind.bound[0], json.dumps(json_dict))))
 
@@ -133,7 +134,6 @@ def hello_world():
   #while True:
   #client.Process(1)
   flush_queued_messages()
-  return 'Sent a message to Android!'
   print 'deeper'
   send_queue.append({'to': ANDROID,
                    'message_id': 'reg_id',
