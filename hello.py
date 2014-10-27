@@ -7,7 +7,7 @@ import sys, json, time, random, string, xmpp
 #!/usr/bin/python
 
 SERVER = 'gcm.googleapis.com'
-PORT = 5235
+PORT = process.env.PORT || 5235
 USERNAME = "596039776570"
 PASSWORD = "AIzaSyCGZhlSrNd6gz1JVU1errLhBTSbsYYohdU"
 
