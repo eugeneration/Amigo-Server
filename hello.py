@@ -32,11 +32,7 @@ MESSAGETYPE_UPDATE = "update";
 
 unacked_messages_quota = 100
 send_queue = []
-print 'before'
-client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
-client.RegisterHandler('message', message_callback)
-print 'i iz here'
+
 # Return a random alphanumerical id
 def random_id():
   rid = ''
@@ -140,6 +136,12 @@ def hello_world():
                    'data': {'title': 'Poop', 'message_destination': 'RegId',
                             'message_id': random_id()}})
   return 'Sent a message to Android!'
+
+print 'before'
+client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
+client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+client.RegisterHandler('message', message_callback)
+print 'i iz here'
 
 if __name__ == '__main__':
     print 'in main'
