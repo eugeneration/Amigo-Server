@@ -32,8 +32,10 @@ MESSAGETYPE_UPDATE = "update";
 
 unacked_messages_quota = 100
 send_queue = []
+print 'before'
 client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-
+client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+print 'i iz here'
 # Return a random alphanumerical id
 def random_id():
   rid = ''
@@ -131,7 +133,6 @@ def hello_world():
   #while True:
   client.Process(1)
   flush_queued_messages()
-  print 'HEEEEEYYYYYY'
 
   send_queue.append({'to': ANDROID,
                    'message_id': 'reg_id',
@@ -140,7 +141,6 @@ def hello_world():
   return 'Sent a message to Android!'
 
 if __name__ == '__main__':
-    client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
     auth = client.auth(USERNAME, PASSWORD)
     if not auth:
       print 'Authentication failed!'
