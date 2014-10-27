@@ -1,11 +1,10 @@
 from flask import Flask
-app = Flask(__name__)
+import sys, json, time, random, string, xmpp
 
 ####################################################
 ###### FROM SCRIPT.PY
 ####################################################
 #!/usr/bin/python
-import sys, json, time, random, string, xmpp
 
 SERVER = 'gcm.googleapis.com'
 PORT = 5235
@@ -105,8 +104,10 @@ def message_callback(session, message):
 
 def send(json_dict):
   template = ("<message><gcm xmlns='google:mobile:data'>{1}</gcm></message>")
+  print 'before send'
   client.send(xmpp.protocol.Message(
       node=template.format(client.Bind.bound[0], json.dumps(json_dict))))
+  print 'after send'
 
 def flush_queued_messages():
   global unacked_messages_quota
@@ -119,6 +120,7 @@ def flush_queued_messages():
 
 ####################################################
 
+app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
@@ -130,10 +132,7 @@ def hello_world():
                      'data': {'title': 'Poop', 'message_destination': 'RegId',
                               'message_id': random_id()}})
   print 'further'
-  #while True:
-  #client.Process(1)
   flush_queued_messages()
-  return 'Sent a message to Android!'
   print 'deeper'
   send_queue.append({'to': ANDROID,
                    'message_id': 'reg_id',
@@ -141,16 +140,23 @@ def hello_world():
                             'message_id': random_id()}})
   return 'Sent a message to Android!'
 
-print 'before'
-client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
-client.RegisterHandler('message', message_callback)
-print 'i iz here'
-
 if __name__ == '__main__':
-    print 'in main'
-    auth = client.auth(USERNAME, PASSWORD)
-    if not auth:
-      print 'Authentication failed!'
-      sys.exit(1)
-    app.run()
+  print 'in main'
+  print 'before'
+
+  client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
+  client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+  print 'i iz here'
+  auth = client.auth(USERNAME, PASSWORD)
+  if not auth:
+    print 'Authentication failed!'
+    sys.exit(1)
+
+  client.RegisterHandler('message', message_callback)
+
+  app.config['DEBUG'] = True
+  app.run()
+
+  while True:
+    client.Process(1)
+    flush_queued_messages()
