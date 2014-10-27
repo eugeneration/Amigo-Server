@@ -1,1 +1,1 @@
-web: python -u hello.py
+web: python -u hello.py -p $PORT
