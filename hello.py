@@ -7,7 +7,7 @@ import sys, json, time, random, string, xmpp
 #!/usr/bin/python
 
 SERVER = 'gcm.googleapis.com'
-PORT = process.env.PORT || 5235
+PORT = 5235
 USERNAME = "596039776570"
 PASSWORD = "AIzaSyCGZhlSrNd6gz1JVU1errLhBTSbsYYohdU"
 
@@ -145,7 +145,7 @@ if __name__ == '__main__':
   print 'before'
 
   client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-  client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+  client.connect(server=(SERVER, process.env.PORT || PORT), secure=1, use_srv=False)
   print 'i iz here'
   auth = client.auth(USERNAME, PASSWORD)
   if not auth:
