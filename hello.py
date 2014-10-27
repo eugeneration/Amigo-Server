@@ -145,7 +145,8 @@ if __name__ == '__main__':
   print 'before'
 
   client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-  client.connect(server=(SERVER, process.env.PORT || PORT), secure=1, use_srv=False)
+  # change to PORT when running locally
+  client.connect(server=(SERVER, process.env.PORT), secure=1, use_srv=False)
   print 'i iz here'
   auth = client.auth(USERNAME, PASSWORD)
   if not auth:
