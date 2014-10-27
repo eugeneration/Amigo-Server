@@ -132,6 +132,7 @@ def hello_world():
   print 'further'
   #while True:
   #client.Process(1)
+  return 'Sent a message to Android!'
   flush_queued_messages()
   print 'deeper'
   send_queue.append({'to': ANDROID,
