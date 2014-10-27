@@ -35,6 +35,7 @@ send_queue = []
 print 'before'
 client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
 client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+client.RegisterHandler('message', message_callback)
 print 'i iz here'
 # Return a random alphanumerical id
 def random_id():
@@ -125,16 +126,15 @@ def hello_world():
   print 'in hello world method'
   # client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
 
-  client.RegisterHandler('message', message_callback)
   send_queue.append({'to': ANDROID,
                      'message_id': 'reg_id',
                      'data': {'title': 'Poop', 'message_destination': 'RegId',
                               'message_id': random_id()}})
-
+  print 'further'
   #while True:
   client.Process(1)
   flush_queued_messages()
-
+  print 'deeper'
   send_queue.append({'to': ANDROID,
                    'message_id': 'reg_id',
                    'data': {'title': 'Poop', 'message_destination': 'RegId',
