@@ -1,5 +1,5 @@
 from flask import Flask
-import sys, json, time, random, string, xmpp
+import os, sys, json, time, random, string, xmpp
 
 ####################################################
 ###### FROM SCRIPT.PY
@@ -7,7 +7,7 @@ import sys, json, time, random, string, xmpp
 #!/usr/bin/python
 
 SERVER = 'gcm.googleapis.com'
-PORT = int(os.environ.get('PORT', 5000))
+PORTA = 5235
 USERNAME = "596039776570"
 PASSWORD = "AIzaSyCGZhlSrNd6gz1JVU1errLhBTSbsYYohdU"
 
@@ -145,7 +145,8 @@ if __name__ == '__main__':
   print 'before'
 
   client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
-  client.connect(server=(SERVER,PORT), secure=1, use_srv=False)
+
+  client.connect(server=(SERVER,PORTA), secure=1, use_srv=False)
   print 'i iz here'
   auth = client.auth(USERNAME, PASSWORD)
   if not auth:
