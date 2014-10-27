@@ -128,7 +128,7 @@ def hello_world():
                               'message_id': random_id()}})
   print 'further'
   #while True:
-  client.Process(1)
+  #client.Process(1)
   flush_queued_messages()
   print 'deeper'
   send_queue.append({'to': ANDROID,
