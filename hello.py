@@ -122,6 +122,7 @@ def flush_queued_messages():
 
 @app.route('/')
 def hello_world():
+  print 'in hello world method'
   # client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
 
   client.RegisterHandler('message', message_callback)
@@ -141,6 +142,7 @@ def hello_world():
   return 'Sent a message to Android!'
 
 if __name__ == '__main__':
+    print 'in main'
     auth = client.auth(USERNAME, PASSWORD)
     if not auth:
       print 'Authentication failed!'
