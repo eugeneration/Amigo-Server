@@ -123,7 +123,6 @@ def flush_queued_messages():
 @app.route('/')
 def hello_world():
   print 'in hello world method'
-  return 'Sent a message to Android!'
   # client = xmpp.Client('gcm.googleapis.com', debug=['socket'])
 
   send_queue.append({'to': ANDROID,
