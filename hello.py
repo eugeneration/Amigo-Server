@@ -110,9 +110,12 @@ def send(json_dict):
 
 def flush_queued_messages():
   global unacked_messages_quota
+  print 'in here'
   while len(send_queue) and unacked_messages_quota > 0:
+    print 'and here'
     send(send_queue.pop(0))
     unacked_messages_quota -= 1
+    print 'also here?'
 
 ####################################################
 
